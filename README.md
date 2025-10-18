@@ -1,254 +1,116 @@
-# 💎 Crystal Pop Journey
+# Crystal Pop Journey 💎
 
-A beautiful match-3 puzzle game for iOS with multiple game modes, power-ups, and AdMob monetization.
+[![iOS](https://img.shields.io/badge/iOS-12.0+-blue.svg)](https://www.apple.com/ios/)
+[![Swift](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://swift.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-![Version](https://img.shields.io/badge/version-1.0-blue)
-![Platform](https://img.shields.io/badge/platform-iOS%2012%2B-lightgrey)
-![Swift](https://img.shields.io/badge/Swift-5.0-orange)
+> A vibrant match-3 puzzle game created to raise awareness and support for **Duchenne Muscular Dystrophy (DMD)** research and treatment.
 
----
+🌐 **Website:** [https://monah84.github.io/CrystalPopJourney/](https://monah84.github.io/CrystalPopJourney/)
 
-## ✨ Features
-
-### 🎮 Game Modes
-- **Classic**: Match crystals with limited moves
-- **Timed**: Race against the clock (60 seconds)
-- **Arcade**: Endless gameplay with increasing difficulty
-- **Challenge**: Progressive levels with specific goals
-
-### ⚡ Power-Ups
-- **Extra Moves**: +5 moves to keep playing
-- **Double Points**: Instantly doubles your score
-- **Bomb Clear**: Clears random area on board
-- **Time Extension**: +10 seconds (timed mode only)
-
-### 🏆 Features
-- High score tracking per game mode
-- Beautiful animations and particle effects
-- Premium AvenirNext fonts
-- Sound effects with haptic feedback
-- Congratulations animation for new high scores
-- Settings screen with sound/music toggles
-- Comprehensive high scores dashboard
-
-### 💰 Monetization
-- AdMob banner ads
-- Interstitial ads (game over)
-- Rewarded ads (shop bonuses)
-- In-app purchases (remove ads, coin packs)
+📱 **Download:** Coming soon to the App Store
 
 ---
 
-## 🚀 Quick Start
+## 🎮 About the Game
 
-### For First-Time Setup:
-1. **Read**: [`START_HERE.md`](START_HERE.md) - 5-step quick guide
-2. **Or Read**: [`COMPLETE_SETUP_GUIDE.md`](COMPLETE_SETUP_GUIDE.md) - Detailed guide for beginners
+Crystal Pop Journey is more than just a game—it's a mission to help fund life-changing treatment for children affected by Duchenne Muscular Dystrophy.
 
-### Already Set Up?
-```bash
-open CrystalPopJourney.xcworkspace
-```
+### Features
 
----
-
-## 📋 What You Need to Do
-
-### Before First Run:
-1. ✅ Create AdMob Interstitial ad unit
-2. ✅ Create AdMob Rewarded ad unit
-3. ✅ Update ad IDs in `MonetizationManager.swift`
-4. ✅ Run `./setup.sh` to install dependencies
-5. ✅ Run `python3 create_icons.py` to generate icons
-
-### Before App Store:
-1. ✅ Test all features on device
-2. ✅ Add app icons to Xcode
-3. ✅ Create privacy policy
-4. ✅ Take screenshots
-5. ✅ Submit to App Store Connect
+- 💎 **Classic Match-3 Gameplay** - Match colorful crystals and create explosive combos
+- 🎮 **Multiple Game Modes** - Classic, Time Attack, and Zen modes
+- 💣 **Power-Ups** - Bombs, row clears, and special crystal combinations
+- 🏆 **Game Center Integration** - Compete on global leaderboards
+- 🎵 **Polished Audio** - Satisfying sound effects and background music
+- 🆓 **100% Free** - Remove ads for FREE, no purchases required
+- 💝 **Support DMD Research** - Optional donations to help fund Elevidys treatment
 
 ---
 
-## 📁 Project Structure
+## ❤️ About Duchenne Muscular Dystrophy
 
-```
-CrystalPopJourney/
-├── CrystalPopJourney.xcworkspace  ← Open this!
-├── CrystalPopJourney/
-│   ├── GameScene.swift            ← Main gameplay
-│   ├── MenuScene.swift            ← Main menu
-│   ├── SettingsScene.swift        ← Settings screen
-│   ├── ScoresScene.swift          ← High scores dashboard
-│   ├── GameBoard.swift            ← Game logic
-│   ├── GameMode.swift             ← Game modes system
-│   ├── PowerUp.swift              ← Power-ups system
-│   ├── FontManager.swift          ← Typography system
-│   ├── SoundManager.swift         ← Audio system
-│   ├── MonetizationManager.swift  ← Ads & IAP
-│   ├── LevelManager.swift         ← Level progression
-│   └── Crystal.swift              ← Crystal objects
-├── Podfile                        ← CocoaPods dependencies
-├── setup.sh                       ← Setup script
-├── create_icons.py                ← Icon generator
-└── Documentation/
-    ├── START_HERE.md              ← Quick start
-    ├── COMPLETE_SETUP_GUIDE.md    ← Full guide
-    ├── XCODE_GUIDE_FOR_BEGINNERS.md
-    ├── COMPLETE_ADMOB_INTEGRATION.md
-    └── PRODUCTION_READY_SUMMARY.md
-```
+**Duchenne Muscular Dystrophy (DMD)** is a genetic disorder that causes progressive muscle weakness. It primarily affects boys and appears in early childhood.
+
+Children with DMD face increasing difficulty with movement, including:
+- Climbing stairs
+- Standing up from a seated position
+- Running and playing like other children
+
+### About Elevidys
+
+**Elevidys** is a groundbreaking gene therapy treatment that can help slow DMD progression, offering real hope for affected children and their families.
 
 ---
 
-## 🎨 Screenshots
+## 💝 Why This App Matters
 
-(Take screenshots while testing and add them here)
+This game was created by a parent whose son was born in 2017 with an exon 71 mutation. He currently faces challenges like climbing stairs and uses both hands and legs to stand up. He's in grade 1 special education, and every day is a battle against this progressive disease.
 
----
-
-## 🛠 Technologies Used
-
-- **Language**: Swift 5.0
-- **Framework**: SpriteKit
-- **Ads**: Google Mobile Ads SDK
-- **IAP**: StoreKit
-- **Dependencies**: CocoaPods
+**Every donation brings us closer to accessing Elevidys gene therapy treatment**, which could change his life and give him a better future.
 
 ---
 
-## 📱 Requirements
+## 🛠 Technology Stack
 
-- iOS 12.0+
-- Xcode 12.0+
-- CocoaPods
-- Apple Developer Account (for App Store submission)
-- AdMob Account
-
----
-
-## 💰 AdMob Configuration
-
-### Your Ad Unit IDs:
-```
-App ID: ca-app-pub-9779930258622875~1132662037
-Banner: ca-app-pub-9779930258622875/1383943470
-Interstitial: (Create in AdMob dashboard)
-Rewarded: (Create in AdMob dashboard)
-```
-
-See [`COMPLETE_ADMOB_INTEGRATION.md`](COMPLETE_ADMOB_INTEGRATION.md) for setup instructions.
+- **Language:** Swift 5.0
+- **Framework:** SpriteKit
+- **Platform:** iOS 12.0+
+- **Services:**
+  - Apple Game Center (Leaderboards & Achievements)
+  - Google AdMob (Optional ads with FREE removal)
+  - Apple In-App Purchases (For donations)
 
 ---
 
-## 🎯 Testing
+## 🔒 Privacy
 
-### On Simulator:
-```bash
-# In Xcode, select iPhone simulator
-# Press ⌘R to run
-```
+Your privacy is important to us. Crystal Pop Journey:
+- ✅ Stores all game data locally on your device
+- ✅ Never collects or transmits personal information
+- ✅ Allows you to disable ads completely for FREE
+- ✅ Uses Apple's secure payment system for donations
 
-### On Real Device:
-```bash
-# Connect iPhone via USB
-# Select device in Xcode
-# Press ⌘R to run
-```
-
-### What to Test:
-- [ ] All 4 game modes work
-- [ ] Power-ups appear and function
-- [ ] High scores save correctly
-- [ ] Settings persist
-- [ ] Ads load and display
-- [ ] Sounds play correctly
-- [ ] No crashes
+For full details, see our [Privacy Policy](https://monah84.github.io/CrystalPopJourney/privacy.html).
 
 ---
 
-## 📚 Documentation
+## 📱 Download
 
-| Document | Description |
-|----------|-------------|
-| [`START_HERE.md`](START_HERE.md) | Quick 5-step setup guide |
-| [`COMPLETE_SETUP_GUIDE.md`](COMPLETE_SETUP_GUIDE.md) | Full beginner-friendly guide |
-| [`XCODE_GUIDE_FOR_BEGINNERS.md`](XCODE_GUIDE_FOR_BEGINNERS.md) | How to use Xcode |
-| [`COMPLETE_ADMOB_INTEGRATION.md`](COMPLETE_ADMOB_INTEGRATION.md) | AdMob setup |
-| [`PRODUCTION_READY_SUMMARY.md`](PRODUCTION_READY_SUMMARY.md) | What's done & TODO |
+**Coming Soon** to the App Store for iPhone and iPad.
+
+Stay tuned for release updates!
 
 ---
 
-## 🐛 Troubleshooting
+## 💝 Support the Mission
 
-### "Pod install" fails:
-```bash
-sudo gem install cocoapods
-pod install
-```
+If you'd like to support DMD research and help fund Elevidys treatment, donations will be available through the app after App Store approval.
 
-### "Module not found":
-- Make sure you opened `.xcworkspace` not `.xcodeproj`
+### Learn More About DMD
 
-### Ads not showing:
-- Check internet connection
-- Wait 30-60 seconds
-- Check Xcode console for errors
-- Verify ad unit IDs are correct
-
-### Build errors:
-```bash
-# Clean build
-⌘⇧K
-
-# Rebuild
-⌘B
-```
-
----
-
-## 🚀 Deployment
-
-### TestFlight (Beta Testing):
-1. Archive app in Xcode
-2. Upload to App Store Connect
-3. Add testers in TestFlight
-4. Get feedback
-
-### App Store:
-1. Complete app information in App Store Connect
-2. Upload build
-3. Submit for review
-4. Wait 1-3 days for approval
-
-See Step 7 in [`COMPLETE_SETUP_GUIDE.md`](COMPLETE_SETUP_GUIDE.md)
+- [Muscular Dystrophy Association](https://www.mda.org/disease/duchenne-muscular-dystrophy)
+- [Elevidys Official Website](https://www.elevidys.com)
+- [Parent Project Muscular Dystrophy](https://www.parentprojectmd.org/)
 
 ---
 
 ## 📄 License
 
-This project is proprietary. All rights reserved.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 👤 Author
+## 📧 Contact
 
-**Monah**
-
----
-
-## 🙏 Acknowledgments
-
-- Apple Developer Documentation
-- Google AdMob SDK
-- SpriteKit Framework
+For questions or support, please visit our [website](https://monah84.github.io/CrystalPopJourney/).
 
 ---
 
-## 📞 Support
+<p align="center">
+  <strong>Made with ❤️ to raise awareness for Duchenne Muscular Dystrophy</strong>
+</p>
 
-Need help? Check the documentation files or open an issue.
-
----
-
-**Ready to make your game go viral! 🚀**
+<p align="center">
+  © 2024 Crystal Pop Journey. All rights reserved.
+</p>

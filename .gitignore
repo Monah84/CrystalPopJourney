@@ -104,3 +104,23 @@ iOSInjectionProject/
 # Python cache
 __pycache__/
 *.pyc
+
+# Internal development documentation (keep local only)
+ADMOB_SETUP_GUIDE.md
+COMPLETE_ADMOB_INTEGRATION.md
+COMPLETE_SETUP_GUIDE.md
+CONVERSATION_LOG.md
+MANUAL_SETUP_INSTRUCTIONS.md
+NEW_FEATURES_SUMMARY.md
+PRODUCTION_READY_SUMMARY.md
+QUICK_START.md
+QUICK_START_NO_ADS.md
+SETUP_CHECKLIST.md
+START_HERE.md
+XCODE_GUIDE_FOR_BEGINNERS.md
+
+# Development scripts (keep local only)
+*.rb
+*.py
+setup.sh
+Podfile
