@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Crystal Pop Journey - A fun match-3 puzzle game raising awareness for Duchenne Muscular Dystrophy (DMD) and supporting Elevidys treatment.">
+    <meta name="keywords" content="Crystal Pop Journey, DMD, Duchenne Muscular Dystrophy, Elevidys, puzzle game, match-3, charity">
+    <title>Crystal Pop Journey - Play for a Cause</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #FFD700;
+            margin-bottom: 40px;
+        }
+
+        /* Content Sections */
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        /* DMD Section */
+        .dmd-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .dmd-section h2 {
+            color: white;
+        }
+
+        .heart {
+            font-size: 3rem;
+            display: block;
+            margin: 20px 0;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+
+        /* Donate Button */
+        .donate-section {
+            text-align: center;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+
+        .donate-section h2 {
+            color: white;
+        }
+
+        .donate-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            margin: 20px 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            background: #FF6B6B;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .donate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        /* App Store Badge */
+        .download-section {
+            text-align: center;
+            background: #2c3e50;
+            color: white;
+        }
+
+        .download-section h2 {
+            color: white;
+        }
+
+        .app-store-badge {
+            display: inline-block;
+            margin: 20px;
+        }
+
+        .app-store-badge img {
+            height: 60px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+        }
+
+        footer a {
+            color: #FFD700;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section {
+                padding: 30px 20px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Crystal Pop Journey</div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1>Play with Purpose</h1>
+                <p class="tagline">Every Match Makes a Difference</p>
+                <p>A colorful match-3 puzzle game created to raise awareness and support for Duchenne Muscular Dystrophy treatment</p>
+            </section>
+
+            <!-- About the App -->
+            <section class="section">
+                <h2>About the Game</h2>
+                <p>Crystal Pop Journey is a vibrant, engaging match-3 puzzle game featuring colorful crystals, exciting power-ups, and multiple game modes. But it's more than just a game—it's a mission to help fund life-changing treatment for a child with DMD.</p>
+
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">💎</div>
+                        <h3>Classic Match-3</h3>
+                        <p>Match crystals, create combos, and rack up high scores</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">💣</div>
+                        <h3>Power-Ups</h3>
+                        <p>Bombs, row clears, and special crystal combos</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🎮</div>
+                        <h3>Multiple Modes</h3>
+                        <p>Classic, Time Attack, and Zen modes for every player</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🏆</div>
+                        <h3>Leaderboards</h3>
+                        <p>Compete globally via Game Center</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🎵</div>
+                        <h3>Polished Audio</h3>
+                        <p>Satisfying sound effects and background music</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🆓</div>
+                        <h3>100% Free</h3>
+                        <p>Remove ads for FREE—no purchases required</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DMD Awareness Section -->
+            <section class="section dmd-section">
+                <h2>About Duchenne Muscular Dystrophy</h2>
+                <span class="heart">❤️</span>
+                <p><strong>Duchenne Muscular Dystrophy (DMD)</strong> is a genetic disorder that causes progressive muscle weakness. It primarily affects boys and appears in early childhood.</p>
+                <p>Children with DMD face increasing difficulty with movement, including climbing stairs and standing up. Without treatment, the condition progressively worsens.</p>
+                <p><strong>Elevidys</strong> is a groundbreaking gene therapy treatment that can help slow DMD progression, offering real hope for affected children and their families.</p>
+            </section>
+
+            <!-- Personal Story -->
+            <section class="section">
+                <h2>Why This App Matters</h2>
+                <p>This game was created by a parent whose son was born in 2017 with an exon 71 mutation. He currently faces challenges like climbing stairs and uses both hands and legs to stand up. He's in grade 1 special education, and every day is a battle against this progressive disease.</p>
+                <p>Every donation brings us closer to accessing Elevidys gene therapy treatment, which could change his life and give him a better future.</p>
+            </section>
+
+            <!-- Donation Section -->
+            <section class="section donate-section">
+                <h2>💝 Support DMD Research & Treatment</h2>
+                <p>Help fund Elevidys treatment and support the fight against DMD. Every contribution makes a real difference in a child's life.</p>
+                <p><em>Donation features will be available after App Store approval. Thank you for your support!</em></p>
+            </section>
+
+            <!-- Download Section -->
+            <section class="section download-section">
+                <h2>Download Now</h2>
+                <p>Available soon on the App Store for iPhone and iPad</p>
+                <p><em>Coming Soon - Currently in review</em></p>
+                <!-- Uncomment when app is published:
+                <a href="https://apps.apple.com/YOUR_APP_LINK" class="app-store-badge">
+                    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
+                </a>
+                -->
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Crystal Pop Journey &copy; 2024</p>
+            <p>Made with ❤️ to raise awareness for Duchenne Muscular Dystrophy</p>
+            <p>Learn more about <a href="https://www.mda.org/disease/duchenne-muscular-dystrophy" target="_blank">DMD</a> and <a href="https://www.elevidys.com" target="_blank">Elevidys</a></p>
+        </div>
+    </footer>
+</body>
+</html>
