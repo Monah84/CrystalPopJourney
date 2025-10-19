@@ -7,6 +7,7 @@ class GameScene: SKScene {
     private var movesLabel: SKLabelNode!
     private var levelLabel: SKLabelNode!
     private var timerLabel: SKLabelNode!
+    private var missionLabel: SKLabelNode?
     private var backgroundMusic: SKAudioNode?
     private var gameMode: GameMode = .classic
     private var timeRemaining: Int = 0
@@ -110,6 +111,13 @@ class GameScene: SKScene {
 
         levelLabel = createLabel(text: "Level: 1", position: CGPoint(x: 20, y: headerY + 40))
         addChild(levelLabel)
+
+        // Add mission label for arcade mode
+        if gameMode == .arcade {
+            missionLabel = createLabel(text: "Mission: Loading...", position: CGPoint(x: 20, y: headerY + 5))
+            missionLabel?.fontSize = 14
+            addChild(missionLabel!)
+        }
 
         // Beautiful icon buttons on the right side
         let buttonX = frame.width - 40
@@ -223,6 +231,16 @@ class GameScene: SKScene {
         }
 
         levelLabel.text = "Level: \(gameBoard.getLevel())"
+
+        // Update mission objectives for arcade mode
+        if gameMode == .arcade, let mission = gameBoard.getCurrentMission() {
+            let objectivesText = mission.objectives.map { $0.description }.joined(separator: " | ")
+            missionLabel?.text = "Mission \(mission.missionNumber): \(objectivesText)"
+
+            // Change color based on completion
+            let allComplete = mission.objectives.allSatisfy { $0.isComplete }
+            missionLabel?.fontColor = allComplete ? .green : .white
+        }
 
         let pulseAction = SKAction.sequence([
             SKAction.scale(to: 1.1, duration: 0.1),

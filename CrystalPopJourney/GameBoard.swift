@@ -31,6 +31,12 @@ class GameBoard: SKNode {
         gameMode = GameModeManager.shared.getCurrentMode()
         moves = gameMode.startingMoves
         loadHighScore()
+
+        // Start arcade mission if in arcade mode
+        if gameMode == .arcade {
+            ArcadeMissionManager.shared.startNewGame()
+        }
+
         setupBoard()
         fillBoard()
     }
@@ -132,18 +138,7 @@ class GameBoard: SKNode {
             guard let self = self else { return }
 
             if self.hasMatches() == true {
-                // Decrement moves, but check arcade mode special handling
-                if self.gameMode == .arcade {
-                    // In arcade mode, add moves before they run out
-                    if self.moves <= 5 {
-                        self.addMoves(10)
-                        self.gameScene?.showPowerUpMessage("+10 Moves!")
-                    }
-                    self.moves -= 1
-                } else {
-                    self.moves -= 1
-                }
-
+                self.moves -= 1
                 self.processMatches()
                 self.gameScene?.updateUI()
             } else {
@@ -256,6 +251,12 @@ class GameBoard: SKNode {
             print("DEBUG processMatches: No matches found, checking board")
             forceFillAnyMissingTiles() // SAFETY: Ensure board is complete
             validateBoardComplete()
+
+            // Check arcade mission completion
+            if gameMode == .arcade {
+                checkArcadeMissionComplete()
+            }
+
             if !hasPossibleMoves() {
                 scrambleBoard()
             } else {
@@ -276,6 +277,29 @@ class GameBoard: SKNode {
                     self?.processMatches()
                 }
             }
+        }
+    }
+
+    private func checkArcadeMissionComplete() {
+        guard gameMode == .arcade else { return }
+
+        if ArcadeMissionManager.shared.checkMissionComplete() {
+            let completedMission = ArcadeMissionManager.shared.getCurrentMission()
+
+            // Award bonus moves and points
+            addMoves(completedMission.bonusMoves)
+            addScore(completedMission.bonusPoints)
+
+            // Show completion message
+            let message = "Mission \(completedMission.missionNumber) Complete!\n+\(completedMission.bonusMoves) Moves  +\(completedMission.bonusPoints) Points"
+            gameScene?.showPowerUpMessage(message)
+
+            // Advance to next mission
+            let nextMission = ArcadeMissionManager.shared.advanceToNextMission()
+            print("✅ Mission completed! Next: Mission \(nextMission.missionNumber)")
+
+            // Update UI to show new mission
+            gameScene?.updateUI()
         }
     }
 
@@ -322,6 +346,13 @@ class GameBoard: SKNode {
         let matchesCount = matches.count
         addScore(matchesCount * 10 * level)
         matchCount += 1
+
+        // Track destroyed crystals for arcade mode missions
+        if gameMode == .arcade {
+            for crystal in matches {
+                ArcadeMissionManager.shared.recordCrystalDestroyed(crystal.type)
+            }
+        }
 
         // Randomly spawn power-up (10% chance after every 3 matches)
         if matchCount % 3 == 0 && CGFloat.random(in: 0...1) < 0.3 {
@@ -461,16 +492,6 @@ class GameBoard: SKNode {
         // SAFETY: Always ensure board is complete before checking game over
         forceFillAnyMissingTiles()
 
-        // Arcade mode doesn't end on moves
-        if gameMode == .arcade {
-            if !hasPossibleMoves() {
-                // In arcade mode, give more moves and increase level
-                addMoves(10)
-                levelUp()
-            }
-            return
-        }
-
         // Don't check moves in timed mode
         if gameMode != .timed && moves <= 0 {
             gameScene?.gameOver(score: score)
@@ -549,6 +570,11 @@ class GameBoard: SKNode {
     func getMoves() -> Int { return moves }
     func getLevel() -> Int { return level }
     func getHighScore() -> Int { return highScore }
+
+    func getCurrentMission() -> ArcadeMission? {
+        guard gameMode == .arcade else { return nil }
+        return ArcadeMissionManager.shared.getCurrentMission()
+    }
 
     func setLevel(_ newLevel: Int) {
         level = newLevel

@@ -22,7 +22,7 @@ enum GameMode {
         case .timed:
             return "Race against the clock!"
         case .arcade:
-            return "Endless play with increasing difficulty"
+            return "Complete missions to earn bonus moves"
         case .challenge:
             return "Complete levels with specific goals"
         }
