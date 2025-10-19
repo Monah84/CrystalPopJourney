@@ -46,6 +46,7 @@
 		8D1107391FE1000000000000 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8D11073C1FE1000000000000 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D11073E1FE1000000000000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D11073F1FE1000000000001 /* CrystalPopJourney.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CrystalPopJourney.entitlements; sourceTree = "<group>"; };
 		8D1107441FE1000000000001 /* Crystal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crystal.swift; sourceTree = "<group>"; };
 		8D1107461FE1000000000002 /* GameBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoard.swift; sourceTree = "<group>"; };
 		8D1107481FE1000000000003 /* LevelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelManager.swift; sourceTree = "<group>"; };
@@ -104,6 +105,7 @@
 				8D1107391FE1000000000000 /* Assets.xcassets */,
 				8D11073B1FE1000000000000 /* LaunchScreen.storyboard */,
 				8D11073E1FE1000000000000 /* Info.plist */,
+				8D11073F1FE1000000000001 /* CrystalPopJourney.entitlements */,
 				B09AD0EBB8E69D65D6275EE9 /* PowerUp.swift */,
 				2AA795C0138A8865D916A9A0 /* GameMode.swift */,
 				3967F7BE1EB926D6F9FDA982 /* FontManager.swift */,
@@ -358,6 +360,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CrystalPopJourney/CrystalPopJourney.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8S568WN2TR;
@@ -394,6 +397,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CrystalPopJourney/CrystalPopJourney.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8S568WN2TR;
