@@ -165,9 +165,21 @@ class ScoresScene: SKScene {
         nameLabel.zPosition = 11
         addChild(nameLabel)
 
-        // Mode description
+        // Mode description - shortened to fit
+        let shortDescription: String
+        switch mode {
+        case .classic:
+            shortDescription = "Limited moves"
+        case .timed:
+            shortDescription = "Race the clock!"
+        case .arcade:
+            shortDescription = "Complete missions"
+        case .challenge:
+            shortDescription = "Level goals"
+        }
+
         let descLabel = FontManager.shared.createLabel(
-            text: mode.description,
+            text: shortDescription,
             font: .caption,
             color: UIColor.lightGray
         )
@@ -181,7 +193,7 @@ class ScoresScene: SKScene {
         let scoreText = highScore > 0 ? "\(highScore)" : "---"
 
         let scoreContainer = SKNode()
-        scoreContainer.position = CGPoint(x: frame.midX + 110, y: yPosition)
+        scoreContainer.position = CGPoint(x: frame.midX + 120, y: yPosition)
 
         let scoreLabel = FontManager.shared.createLabel(
             text: scoreText,
@@ -215,7 +227,7 @@ class ScoresScene: SKScene {
         // Rank badge for top scores
         if highScore > 1000 {
             let badge = createRankBadge(score: highScore)
-            badge.position = CGPoint(x: frame.midX + 140, y: yPosition + 20)
+            badge.position = CGPoint(x: frame.midX + 150, y: yPosition + 20)
             badge.zPosition = 12
             addChild(badge)
         }
@@ -291,7 +303,7 @@ class ScoresScene: SKScene {
             color: .crystalGold
         )
         totalScoreLabel.fontSize = 24
-        totalScoreLabel.position = CGPoint(x: frame.midX + 110, y: yPosition + 8)
+        totalScoreLabel.position = CGPoint(x: frame.midX + 120, y: yPosition + 8)
         totalScoreLabel.verticalAlignmentMode = .center
         totalScoreLabel.zPosition = 11
         addChild(totalScoreLabel)
