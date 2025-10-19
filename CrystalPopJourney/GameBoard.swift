@@ -79,8 +79,15 @@ class GameBoard: SKNode {
     func handleTouch(at location: CGPoint) {
         let touchedNode = atPoint(location)
 
-        // Check if a power-up was touched
+        // Check if a power-up was touched (check node itself or its parent)
+        var powerUp: PowerUp? = nil
         if let touchedPowerUp = touchedNode as? PowerUp {
+            powerUp = touchedPowerUp
+        } else if let parentPowerUp = touchedNode.parent as? PowerUp {
+            powerUp = parentPowerUp
+        }
+
+        if let touchedPowerUp = powerUp {
             collectPowerUp(touchedPowerUp)
             return
         }
