@@ -129,17 +129,30 @@ class GameBoard: SKNode {
         }
 
         swapCrystals(crystal1, crystal2) { [weak self] in
-            if self?.hasMatches() == true {
-                self?.moves -= 1
-                self?.processMatches()
-                self?.gameScene?.updateUI()
+            guard let self = self else { return }
+
+            if self.hasMatches() == true {
+                // Decrement moves, but check arcade mode special handling
+                if self.gameMode == .arcade {
+                    // In arcade mode, add moves before they run out
+                    if self.moves <= 5 {
+                        self.addMoves(10)
+                        self.gameScene?.showPowerUpMessage("+10 Moves!")
+                    }
+                    self.moves -= 1
+                } else {
+                    self.moves -= 1
+                }
+
+                self.processMatches()
+                self.gameScene?.updateUI()
             } else {
-                self?.swapCrystals(crystal1, crystal2) {
+                self.swapCrystals(crystal1, crystal2) {
                     // Force-fill after swap-back completes
-                    self?.forceFillAnyMissingTiles()
+                    self.forceFillAnyMissingTiles()
                 }
             }
-            self?.deselectCrystal()
+            self.deselectCrystal()
         }
     }
     
@@ -445,6 +458,9 @@ class GameBoard: SKNode {
     }
     
     private func checkGameOver() {
+        // SAFETY: Always ensure board is complete before checking game over
+        forceFillAnyMissingTiles()
+
         // Arcade mode doesn't end on moves
         if gameMode == .arcade {
             if !hasPossibleMoves() {
@@ -639,6 +655,8 @@ class GameBoard: SKNode {
             removeMatches(crystalsToClear) { [weak self] in
                 self?.dropCrystals {
                     self?.fillEmptySpaces {
+                        // SAFETY: Force fill any missing tiles before processing matches
+                        self?.forceFillAnyMissingTiles()
                         self?.processMatches()
                     }
                 }
