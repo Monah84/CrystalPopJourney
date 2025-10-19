@@ -28,6 +28,7 @@
 		B2A9E508C1CF8EB5086AF119 /* GoogleMobileAds.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 437A2523A2F1AB085450E9B7 /* GoogleMobileAds.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B46891A12B100F000FF2BBEC /* ScoresScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076680559AB476A27C5EE2CA /* ScoresScene.swift */; };
 		E5335164F863257F4ABEECF0 /* AboutDMDScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838FF0363BE6C07BBF86EBF7 /* AboutDMDScene.swift */; };
+		A1B2C3D4E5F6789012345678 /* ArcadeMission.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E8D7C6B5A4321098765432 /* ArcadeMission.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		9407BAF626E44DE7AB682601 /* GoogleMobileAds.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = GoogleMobileAds.xcframework; path = Frameworks/GoogleMobileAds.xcframework; sourceTree = SOURCE_ROOT; };
 		9E31267B30F61D856F7FEF1C /* SettingsScene.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SettingsScene.swift; sourceTree = "<group>"; };
 		B09AD0EBB8E69D65D6275EE9 /* PowerUp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PowerUp.swift; path = PowerUp.swift; sourceTree = "<group>"; };
+		F9E8D7C6B5A4321098765432 /* ArcadeMission.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ArcadeMission.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				076680559AB476A27C5EE2CA /* ScoresScene.swift */,
 				838FF0363BE6C07BBF86EBF7 /* AboutDMDScene.swift */,
 				8C35F5CE92B96CDB4E6F9C58 /* GameCenterManager.swift */,
+				F9E8D7C6B5A4321098765432 /* ArcadeMission.swift */,
 			);
 			path = CrystalPopJourney;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				6EBF00A49FE3F68BDD50DFBE /* GameMode.swift in Sources */,
 				E5335164F863257F4ABEECF0 /* AboutDMDScene.swift in Sources */,
 				66CE29F33C5E218010D0422F /* GameCenterManager.swift in Sources */,
+				A1B2C3D4E5F6789012345678 /* ArcadeMission.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
