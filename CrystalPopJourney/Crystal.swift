@@ -31,15 +31,25 @@ class Crystal: SKSpriteNode {
     var type: CrystalType
     var row: Int = 0
     var column: Int = 0
-    
+    private var crystalSize: CGFloat = 50
+
+    convenience init(type: CrystalType, size: CGFloat) {
+        self.init(type: type)
+        self.crystalSize = size
+        self.size = CGSize(width: size, height: size)
+        removeAllChildren() // Remove old appearance
+        createCrystalAppearance() // Recreate with new size
+        setupPhysics()
+    }
+
     init(type: CrystalType) {
         self.type = type
-        
+
         let texture = SKTexture()
         super.init(texture: texture, color: type.color, size: CGSize(width: 50, height: 50))
-        
+
         self.name = "crystal_\(type.name)"
-        
+
         createCrystalAppearance()
         setupPhysics()
     }
@@ -49,22 +59,27 @@ class Crystal: SKSpriteNode {
     }
     
     private func createCrystalAppearance() {
-        let outerGlow = SKShapeNode(circleOfRadius: 30)
+        let glowRadius = crystalSize * 0.6
+        let outerGlow = SKShapeNode(circleOfRadius: glowRadius)
         outerGlow.fillColor = type.color.withAlphaComponent(0.3)
         outerGlow.strokeColor = .clear
         outerGlow.glowWidth = 5
         addChild(outerGlow)
-        
-        let innerShape = SKShapeNode(rect: CGRect(x: -20, y: -20, width: 40, height: 40), cornerRadius: 8)
+
+        let shapeSize = crystalSize * 0.8
+        let halfSize = shapeSize / 2
+        let innerShape = SKShapeNode(rect: CGRect(x: -halfSize, y: -halfSize, width: shapeSize, height: shapeSize), cornerRadius: shapeSize * 0.16)
         innerShape.fillColor = type.color
         innerShape.strokeColor = UIColor.white.withAlphaComponent(0.8)
         innerShape.lineWidth = 2
-        
-        let gradient = SKShapeNode(rect: CGRect(x: -18, y: 10, width: 36, height: 15), cornerRadius: 3)
+
+        let gradientWidth = shapeSize * 0.9
+        let gradientHeight = shapeSize * 0.375
+        let gradient = SKShapeNode(rect: CGRect(x: -gradientWidth/2, y: halfSize/4, width: gradientWidth, height: gradientHeight), cornerRadius: 3)
         gradient.fillColor = UIColor.white.withAlphaComponent(0.4)
         gradient.strokeColor = .clear
         innerShape.addChild(gradient)
-        
+
         addChild(innerShape)
     }
     

@@ -77,7 +77,7 @@ class GameScene: SKScene {
     }
     
     private func setupGameBoard() {
-        gameBoard = GameBoard()
+        gameBoard = GameBoard(screenWidth: frame.width)
         gameBoard.gameScene = self
         gameBoard.position = CGPoint(x: frame.midX, y: frame.midY - 80)
         addChild(gameBoard)
@@ -113,16 +113,17 @@ class GameScene: SKScene {
 
         // Beautiful icon buttons on the right side
         let buttonX = frame.width - 40
+        let buttonSpacing: CGFloat = 65 // Increased spacing to prevent overlap
 
-        let pauseButton = createIconButton(icon: "⏸", position: CGPoint(x: buttonX, y: headerY + 105))
+        let pauseButton = createIconButton(icon: "⏸", position: CGPoint(x: buttonX, y: headerY + 110))
         pauseButton.name = "pauseButton"
         addChild(pauseButton)
 
-        let hintButton = createIconButton(icon: "💡", position: CGPoint(x: buttonX, y: headerY + 60))
+        let hintButton = createIconButton(icon: "💡", position: CGPoint(x: buttonX, y: headerY + 110 - buttonSpacing))
         hintButton.name = "hintButton"
         addChild(hintButton)
 
-        let menuButton = createIconButton(icon: "🏠", position: CGPoint(x: buttonX, y: headerY + 15))
+        let menuButton = createIconButton(icon: "🏠", position: CGPoint(x: buttonX, y: headerY + 110 - (buttonSpacing * 2)))
         menuButton.name = "menuButton"
         addChild(menuButton)
     }

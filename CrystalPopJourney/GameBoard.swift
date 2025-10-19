@@ -13,9 +13,19 @@ class GameBoard: SKNode {
     private var powerUps: [PowerUp] = []
     private var matchCount = 0
     private var gameMode: GameMode = .classic
+    // FIXED crystal size - all tiles are exactly the same size
+    private let crystalSize: CGFloat = 40  // FIXED at 40x40 pixels (optimized for iPhone SE)
+    private let crystalSpacing: CGFloat = 42  // FIXED at 42px (creates 2px gap between tiles)
 
     weak var gameScene: GameScene?
-    
+
+    convenience init(screenWidth: CGFloat) {
+        self.init()
+        // Crystal size and spacing are now FIXED constants
+        // All tiles will be exactly 40x40 pixels with 2px gaps
+        // Total board width: 42px × 8 = 336px (fits iPhone SE and larger)
+    }
+
     override init() {
         super.init()
         gameMode = GameModeManager.shared.getCurrentMode()
@@ -50,18 +60,19 @@ class GameBoard: SKNode {
     private func createRandomCrystal(at row: Int, col: Int) -> Crystal {
         let availableTypes = Crystal.CrystalType.allCases
         let randomType = availableTypes.randomElement()!
-        
-        let crystal = Crystal(type: randomType)
+
+        let crystal = Crystal(type: randomType, size: crystalSize)
         crystal.row = row
         crystal.column = col
         crystal.position = positionForCrystal(row: row, col: col)
-        
+
         return crystal
     }
     
     private func positionForCrystal(row: Int, col: Int) -> CGPoint {
-        let x = CGFloat(col) * 60 - CGFloat(boardSize - 1) * 30
-        let y = CGFloat(row) * 60 - CGFloat(boardSize - 1) * 30
+        let halfSpacing = crystalSpacing / 2
+        let x = CGFloat(col) * crystalSpacing - CGFloat(boardSize - 1) * halfSpacing
+        let y = CGFloat(row) * crystalSpacing - CGFloat(boardSize - 1) * halfSpacing
         return CGPoint(x: x, y: y)
     }
     
