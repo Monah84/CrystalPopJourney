@@ -54,7 +54,7 @@ class ArcadeMissionManager {
     func saveProgress() {
         UserDefaults.standard.set(currentMissionNumber, forKey: "ArcadeMissionNumber")
 
-        // Save objectives progress as arrays
+        // Save objectives progress as arrays (crystal types are Int raw values)
         let crystalTypes = currentObjectives.map { $0.crystalType.rawValue }
         let targets = currentObjectives.map { $0.target }
         let currents = currentObjectives.map { $0.current }
@@ -71,7 +71,7 @@ class ArcadeMissionManager {
 
         // If no saved progress, start fresh
         guard savedMission > 0,
-              let crystalTypes = UserDefaults.standard.array(forKey: "ArcadeObjectiveTypes") as? [String],
+              let crystalTypes = UserDefaults.standard.array(forKey: "ArcadeObjectiveTypes") as? [Int],
               let targets = UserDefaults.standard.array(forKey: "ArcadeObjectiveTargets") as? [Int],
               let currents = UserDefaults.standard.array(forKey: "ArcadeObjectiveCurrents") as? [Int],
               crystalTypes.count == targets.count && targets.count == currents.count else {
