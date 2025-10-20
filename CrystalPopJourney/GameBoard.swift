@@ -32,9 +32,13 @@ class GameBoard: SKNode {
         moves = gameMode.startingMoves
         loadHighScore()
 
-        // Start arcade mission if in arcade mode
+        // Start or resume arcade mission if in arcade mode
         if gameMode == .arcade {
-            ArcadeMissionManager.shared.startNewGame()
+            // Only start new game if no saved progress exists
+            if ArcadeMissionManager.shared.getCurrentMission().objectives.isEmpty {
+                ArcadeMissionManager.shared.startNewGame()
+            }
+            // Otherwise, saved progress is automatically loaded in init()
         }
 
         setupBoard()
@@ -492,7 +496,7 @@ class GameBoard: SKNode {
         // SAFETY: Always ensure board is complete before checking game over
         forceFillAnyMissingTiles()
 
-        // Don't check moves in timed mode
+        // Don't check moves in timed mode, but DO check for arcade mode
         if gameMode != .timed && moves <= 0 {
             gameScene?.gameOver(score: score)
         } else if !hasPossibleMoves() {

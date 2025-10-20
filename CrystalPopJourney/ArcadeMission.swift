@@ -40,11 +40,63 @@ class ArcadeMissionManager {
     private var currentMissionNumber: Int = 1
     private var currentObjectives: [ArcadeMission.CrystalObjective] = []
 
-    private init() {}
+    private init() {
+        loadProgress()
+    }
 
     func startNewGame() {
         currentMissionNumber = 1
         currentObjectives = generateMission(number: 1).objectives
+        saveProgress()
+    }
+
+    // MARK: - Progress Persistence
+    func saveProgress() {
+        UserDefaults.standard.set(currentMissionNumber, forKey: "ArcadeMissionNumber")
+
+        // Save objectives progress as arrays
+        let crystalTypes = currentObjectives.map { $0.crystalType.rawValue }
+        let targets = currentObjectives.map { $0.target }
+        let currents = currentObjectives.map { $0.current }
+
+        UserDefaults.standard.set(crystalTypes, forKey: "ArcadeObjectiveTypes")
+        UserDefaults.standard.set(targets, forKey: "ArcadeObjectiveTargets")
+        UserDefaults.standard.set(currents, forKey: "ArcadeObjectiveCurrents")
+
+        print("💾 Arcade progress saved: Mission \(currentMissionNumber)")
+    }
+
+    func loadProgress() {
+        let savedMission = UserDefaults.standard.integer(forKey: "ArcadeMissionNumber")
+
+        // If no saved progress, start fresh
+        guard savedMission > 0,
+              let crystalTypes = UserDefaults.standard.array(forKey: "ArcadeObjectiveTypes") as? [String],
+              let targets = UserDefaults.standard.array(forKey: "ArcadeObjectiveTargets") as? [Int],
+              let currents = UserDefaults.standard.array(forKey: "ArcadeObjectiveCurrents") as? [Int],
+              crystalTypes.count == targets.count && targets.count == currents.count else {
+            print("💾 No saved arcade progress found, starting fresh")
+            currentMissionNumber = 1
+            currentObjectives = []
+            return
+        }
+
+        currentMissionNumber = savedMission
+
+        // Restore objectives
+        currentObjectives = []
+        for i in 0..<crystalTypes.count {
+            if let type = Crystal.CrystalType(rawValue: crystalTypes[i]) {
+                var objective = ArcadeMission.CrystalObjective(
+                    crystalType: type,
+                    target: targets[i]
+                )
+                objective.current = currents[i]
+                currentObjectives.append(objective)
+            }
+        }
+
+        print("💾 Arcade progress loaded: Mission \(currentMissionNumber) with \(currentObjectives.count) objectives")
     }
 
     func getCurrentMission() -> ArcadeMission {
@@ -57,10 +109,15 @@ class ArcadeMissionManager {
     }
 
     func recordCrystalDestroyed(_ type: Crystal.CrystalType) {
+        var progressChanged = false
         for i in 0..<currentObjectives.count {
             if currentObjectives[i].crystalType == type && !currentObjectives[i].isComplete {
                 currentObjectives[i].current += 1
+                progressChanged = true
             }
+        }
+        if progressChanged {
+            saveProgress()
         }
     }
 
@@ -72,6 +129,7 @@ class ArcadeMissionManager {
         currentMissionNumber += 1
         let newMission = generateMission(number: currentMissionNumber)
         currentObjectives = newMission.objectives
+        saveProgress()
         return newMission
     }
 

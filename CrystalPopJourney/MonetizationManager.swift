@@ -48,6 +48,11 @@ class MonetizationManager: NSObject {
         set { UserDefaults.standard.set(newValue, forKey: "PlayerCoins") }
     }
 
+    private var gamesPlayed: Int {
+        get { UserDefaults.standard.integer(forKey: "GamesPlayed") }
+        set { UserDefaults.standard.set(newValue, forKey: "GamesPlayed") }
+    }
+
     override init() {
         super.init()
         SKPaymentQueue.default().add(self)
@@ -160,18 +165,34 @@ class MonetizationManager: NSObject {
     func showInterstitialAd() {
         #if canImport(GoogleMobileAds)
         guard !adsRemoved else { return }
+
+        // Increment game counter
+        gamesPlayed += 1
+
+        // Show ad every 2 games for better monetization
+        guard gamesPlayed % 2 == 0 else {
+            print("📊 Games played: \(gamesPlayed) - waiting for next ad interval")
+            return
+        }
+
         guard let interstitialAd = interstitialAd else {
-            print("Interstitial ad not ready")
+            print("Interstitial ad not ready, loading...")
             loadInterstitialAd()
             return
         }
 
         if let rootViewController = UIApplication.shared.windows.first?.rootViewController {
+            print("📺 Showing interstitial ad after \(gamesPlayed) games")
             interstitialAd.present(from: rootViewController)
         }
         #else
         print("⚠️ Interstitial ads disabled. Run 'pod install' to enable Google Ads.")
         #endif
+    }
+
+    func resetGameCounter() {
+        gamesPlayed = 0
+        print("📊 Game counter reset")
     }
 
     // MARK: - Rewarded Ads
@@ -237,6 +258,32 @@ class MonetizationManager: NSObject {
 
     func areAdsRemoved() -> Bool {
         return adsRemoved
+    }
+
+    func toggleAdsRemoved() {
+        adsRemoved = !adsRemoved
+        print("✅ Ads \(adsRemoved ? "disabled" : "enabled")")
+
+        // Reload ads if re-enabled
+        if !adsRemoved {
+            #if canImport(GoogleMobileAds)
+            loadInterstitialAd()
+            loadRewardedAd()
+            #endif
+        }
+    }
+
+    func setAdsRemoved(_ removed: Bool) {
+        adsRemoved = removed
+        print("✅ Ads \(adsRemoved ? "disabled" : "enabled")")
+
+        // Reload ads if enabled
+        if !adsRemoved {
+            #if canImport(GoogleMobileAds)
+            loadInterstitialAd()
+            loadRewardedAd()
+            #endif
+        }
     }
 
     func restorePurchases(completion: @escaping (Bool) -> Void) {
