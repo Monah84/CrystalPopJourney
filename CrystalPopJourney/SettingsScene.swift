@@ -88,7 +88,7 @@ class SettingsScene: SKScene {
 
         // Donation Section Header
         let donationHeader = FontManager.shared.createLabel(
-            text: "💝 Support DMD Research",
+            text: "💝 Help My Son Fight DMD",
             font: .headline,
             color: .crystalGold
         )
@@ -98,7 +98,7 @@ class SettingsScene: SKScene {
         yPos -= 30
 
         let donationSubtext = FontManager.shared.createLabel(
-            text: "Help fund Elevidys treatment",
+            text: "Every donation helps fund his Elevidys treatment",
             font: .caption,
             color: UIColor.lightGray
         )
@@ -136,7 +136,18 @@ class SettingsScene: SKScene {
             donateButton.name = "donate\(amount)"
             addChild(donateButton)
         }
-        yPos -= CGFloat((donationAmounts.count - 1) / buttonsPerRow + 1) * rowSpacing + 20
+        yPos -= CGFloat((donationAmounts.count - 1) / buttonsPerRow + 1) * rowSpacing + 10
+
+        // Custom Amount Button
+        let customButton = createActionButton(
+            text: "Custom Amount",
+            icon: "💰",
+            position: CGPoint(x: frame.midX, y: yPos),
+            color: UIColor(red: 0.0, green: 0.5, blue: 0.8, alpha: 0.9)
+        )
+        customButton.name = "customDonation"
+        addChild(customButton)
+        yPos -= 70
 
         // Reset Progress Button
         let resetButton = createActionButton(
@@ -360,7 +371,7 @@ class SettingsScene: SKScene {
         // Use MonetizationManager to handle the IAP
         MonetizationManager.shared.purchaseCoins(amount, completion: { [weak self] success in
             if success {
-                self?.showMessage("Thank you for your $\(amount) donation! ❤️")
+                self?.showMessage("Thank you! You're helping save my son's life! ❤️")
             } else {
                 // Show simple coming soon message
                 self?.showMessage("Coming Soon! 💝")
@@ -417,13 +428,139 @@ class SettingsScene: SKScene {
             return
         }
 
+        // Handle custom donations
+        if nodeName.starts(with: "customDonate") {
+            let amountStr = nodeName.replacingOccurrences(of: "customDonate", with: "")
+            if let amount = Int(amountStr) {
+                hideCustomDonationDialog()
+                processDonation(amount: amount)
+            }
+            return
+        }
+
+        // Handle close custom donation
+        if nodeName == "closeCustomDonation" {
+            hideCustomDonationDialog()
+            return
+        }
+
         switch nodeName {
+        case "customDonation":
+            showCustomDonationDialog()
         case "resetButton":
             showResetConfirmation()
         case "backButton":
             returnToMenu()
         default:
             break
+        }
+    }
+
+    private func showCustomDonationDialog() {
+        SoundManager.shared.playSound(.buttonTap)
+
+        let overlay = SKShapeNode(rect: frame)
+        overlay.fillColor = UIColor.black.withAlphaComponent(0.85)
+        overlay.strokeColor = .clear
+        overlay.zPosition = 100
+        overlay.name = "customDonationOverlay"
+        addChild(overlay)
+
+        let panel = SKShapeNode(
+            rect: CGRect(x: frame.midX - 160, y: frame.midY - 180, width: 320, height: 360),
+            cornerRadius: 20
+        )
+        panel.fillColor = UIColor(red: 0.2, green: 0.2, blue: 0.3, alpha: 1.0)
+        panel.strokeColor = UIColor.crystalGold
+        panel.lineWidth = 3
+        panel.zPosition = 101
+        panel.name = "customDonationOverlay"
+        addChild(panel)
+
+        let titleLabel = FontManager.shared.createLabel(
+            text: "💝 Help My Son",
+            font: .headline,
+            color: .crystalGold
+        )
+        titleLabel.position = CGPoint(x: frame.midX, y: frame.midY + 140)
+        titleLabel.zPosition = 102
+        titleLabel.name = "customDonationOverlay"
+        addChild(titleLabel)
+
+        // More donation amounts
+        let customAmounts = [15, 20, 25, 50, 75, 200]
+        let buttonsPerRow = 2
+        let buttonWidth: CGFloat = 130
+        let buttonHeight: CGFloat = 50
+        let xSpacing: CGFloat = 150
+        let ySpacing: CGFloat = 70
+
+        for (index, amount) in customAmounts.enumerated() {
+            let row = index / buttonsPerRow
+            let col = index % buttonsPerRow
+            let xPos = frame.midX + (CGFloat(col) - 0.5) * xSpacing
+            let yPos = frame.midY + 80 - CGFloat(row) * ySpacing
+
+            let button = createCustomAmountButton(amount: amount)
+            button.position = CGPoint(x: xPos, y: yPos)
+            button.name = "customDonate\(amount)"
+            button.zPosition = 102
+            addChild(button)
+        }
+
+        // Close button
+        let closeButton = createSmallButton(text: "Close", color: UIColor.darkGray)
+        closeButton.position = CGPoint(x: frame.midX, y: frame.midY - 140)
+        closeButton.name = "closeCustomDonation"
+        closeButton.zPosition = 102
+        addChild(closeButton)
+    }
+
+    private func createCustomAmountButton(amount: Int) -> SKShapeNode {
+        let button = SKShapeNode(
+            rect: CGRect(x: -60, y: -22, width: 120, height: 44),
+            cornerRadius: 22
+        )
+        button.fillColor = UIColor(red: 0.0, green: 0.6, blue: 0.2, alpha: 0.9)
+        button.strokeColor = UIColor(red: 0.0, green: 0.8, blue: 0.3, alpha: 1.0)
+        button.lineWidth = 2
+
+        let label = FontManager.shared.createLabel(
+            text: "$\(amount)",
+            font: .button,
+            color: .white
+        )
+        label.verticalAlignmentMode = .center
+        button.addChild(label)
+
+        // Special sparkles for larger amounts
+        if amount >= 50 {
+            let sparkle = SKLabelNode(text: "✨")
+            sparkle.fontSize = 16
+            sparkle.position = CGPoint(x: -45, y: 0)
+            sparkle.verticalAlignmentMode = .center
+            button.addChild(sparkle)
+
+            let sparkle2 = SKLabelNode(text: "✨")
+            sparkle2.fontSize = 16
+            sparkle2.position = CGPoint(x: 45, y: 0)
+            sparkle2.verticalAlignmentMode = .center
+            button.addChild(sparkle2)
+        }
+
+        return button
+    }
+
+    private func hideCustomDonationDialog() {
+        enumerateChildNodes(withName: "customDonationOverlay") { node, _ in
+            node.removeFromParent()
+        }
+        enumerateChildNodes(withName: "closeCustomDonation") { node, _ in
+            node.removeFromParent()
+        }
+        // Remove custom donate buttons
+        for amount in [15, 20, 25, 50, 75, 200] {
+            childNode(withName: "customDonate\(amount)")?.removeFromParent()
         }
     }
 

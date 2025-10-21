@@ -24,10 +24,17 @@ class MonetizationManager: NSObject {
     private let rewardedAdUnitID = "ca-app-pub-3940256099942544/1712485313"  // Test Rewarded
 
     // MARK: - In-App Purchase IDs
-    private let removeAdsProductID = "com.yourcompany.crystalpop.removeads"
-    private let coinPack100ID = "com.yourcompany.crystalpop.coins100"
-    private let coinPack500ID = "com.yourcompany.crystalpop.coins500"
-    private let coinPack1000ID = "com.yourcompany.crystalpop.coins1000"
+    private let removeAdsProductID = "com.monah.CrystalPopJourney.removeads"
+    private let donate3ID = "com.monah.CrystalPopJourney.donate3"
+    private let donate5ID = "com.monah.CrystalPopJourney.donate5"
+    private let donate10ID = "com.monah.CrystalPopJourney.donate10"
+    private let donate15ID = "com.monah.CrystalPopJourney.donate15"
+    private let donate20ID = "com.monah.CrystalPopJourney.donate20"
+    private let donate25ID = "com.monah.CrystalPopJourney.donate25"
+    private let donate50ID = "com.monah.CrystalPopJourney.donate50"
+    private let donate75ID = "com.monah.CrystalPopJourney.donate75"
+    private let donate100ID = "com.monah.CrystalPopJourney.donate100"
+    private let donate200ID = "com.monah.CrystalPopJourney.donate200"
 
     private var products: [SKProduct] = []
     private var purchaseCompletion: ((Bool) -> Void)?
@@ -75,9 +82,16 @@ class MonetizationManager: NSObject {
     private func loadProducts() {
         let productIdentifiers: Set<String> = [
             removeAdsProductID,
-            coinPack100ID,
-            coinPack500ID,
-            coinPack1000ID
+            donate3ID,
+            donate5ID,
+            donate10ID,
+            donate15ID,
+            donate20ID,
+            donate25ID,
+            donate50ID,
+            donate75ID,
+            donate100ID,
+            donate200ID
         ]
 
         let request = SKProductsRequest(productIdentifiers: productIdentifiers)
@@ -104,16 +118,24 @@ class MonetizationManager: NSObject {
     func purchaseCoins(_ amount: Int, completion: @escaping (Bool) -> Void) {
         let productID: String
         switch amount {
-        case 3: productID = coinPack100ID      // $3 donation
-        case 5: productID = coinPack500ID      // $5 donation
-        case 10: productID = coinPack1000ID    // $10 donation
-        case 100: productID = coinPack100ID    // $100 donation
+        case 3: productID = donate3ID
+        case 5: productID = donate5ID
+        case 10: productID = donate10ID
+        case 15: productID = donate15ID
+        case 20: productID = donate20ID
+        case 25: productID = donate25ID
+        case 50: productID = donate50ID
+        case 75: productID = donate75ID
+        case 100: productID = donate100ID
+        case 200: productID = donate200ID
         default:
+            print("⚠️ Unsupported donation amount: $\(amount)")
             completion(false)
             return
         }
 
         guard let product = products.first(where: { $0.productIdentifier == productID }) else {
+            print("⚠️ Product not found for $\(amount) donation")
             completion(false)
             return
         }
@@ -297,19 +319,14 @@ class MonetizationManager: NSObject {
             adsRemoved = true
             purchaseCompletion?(true)
 
-        case coinPack100ID:
-            awardCoins(100)
-            purchaseCompletion?(true)
-
-        case coinPack500ID:
-            awardCoins(500)
-            purchaseCompletion?(true)
-
-        case coinPack1000ID:
-            awardCoins(1000)
+        case donate3ID, donate5ID, donate10ID, donate15ID, donate20ID,
+             donate25ID, donate50ID, donate75ID, donate100ID, donate200ID:
+            // Donation complete - thank you!
+            print("✅ Donation received! Thank you for helping my son fight DMD!")
             purchaseCompletion?(true)
 
         default:
+            print("⚠️ Unknown product: \(transaction.payment.productIdentifier)")
             purchaseCompletion?(false)
         }
 
