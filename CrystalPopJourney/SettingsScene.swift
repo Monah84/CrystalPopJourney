@@ -119,24 +119,18 @@ class SettingsScene: SKScene {
         addChild(infoNotice)
         yPos -= 35
 
-        // Donation Buttons
-        let donationAmounts = [3, 5, 10, 100]
-        let buttonsPerRow = 2
+        // Donation Buttons - Quick amounts
+        let donationAmounts = [3, 5, 10]
         let buttonSpacing: CGFloat = 160
-        let rowSpacing: CGFloat = 70
 
         for (index, amount) in donationAmounts.enumerated() {
-            let row = index / buttonsPerRow
-            let col = index % buttonsPerRow
-            let xOffset = CGFloat(col) * buttonSpacing - buttonSpacing/2
-            let y = yPos - CGFloat(row) * rowSpacing
-
+            let xOffset = CGFloat(index - 1) * buttonSpacing
             let donateButton = createDonationButton(amount: amount)
-            donateButton.position = CGPoint(x: frame.midX + xOffset, y: y)
+            donateButton.position = CGPoint(x: frame.midX + xOffset, y: yPos)
             donateButton.name = "donate\(amount)"
             addChild(donateButton)
         }
-        yPos -= CGFloat((donationAmounts.count - 1) / buttonsPerRow + 1) * rowSpacing + 10
+        yPos -= 80
 
         // Custom Amount Button
         let customButton = createActionButton(
@@ -467,7 +461,7 @@ class SettingsScene: SKScene {
         addChild(overlay)
 
         let panel = SKShapeNode(
-            rect: CGRect(x: frame.midX - 160, y: frame.midY - 180, width: 320, height: 360),
+            rect: CGRect(x: frame.midX - 160, y: frame.midY - 200, width: 320, height: 400),
             cornerRadius: 20
         )
         panel.fillColor = UIColor(red: 0.2, green: 0.2, blue: 0.3, alpha: 1.0)
@@ -487,19 +481,19 @@ class SettingsScene: SKScene {
         titleLabel.name = "customDonationOverlay"
         addChild(titleLabel)
 
-        // More donation amounts
-        let customAmounts = [15, 20, 25, 50, 75, 200]
+        // More donation amounts including popular choices
+        let customAmounts = [15, 20, 25, 50, 75, 100, 150, 200]
         let buttonsPerRow = 2
         let buttonWidth: CGFloat = 130
         let buttonHeight: CGFloat = 50
         let xSpacing: CGFloat = 150
-        let ySpacing: CGFloat = 70
+        let ySpacing: CGFloat = 65
 
         for (index, amount) in customAmounts.enumerated() {
             let row = index / buttonsPerRow
             let col = index % buttonsPerRow
             let xPos = frame.midX + (CGFloat(col) - 0.5) * xSpacing
-            let yPos = frame.midY + 80 - CGFloat(row) * ySpacing
+            let yPos = frame.midY + 100 - CGFloat(row) * ySpacing
 
             let button = createCustomAmountButton(amount: amount)
             button.position = CGPoint(x: xPos, y: yPos)
@@ -510,7 +504,7 @@ class SettingsScene: SKScene {
 
         // Close button
         let closeButton = createSmallButton(text: "Close", color: UIColor.darkGray)
-        closeButton.position = CGPoint(x: frame.midX, y: frame.midY - 140)
+        closeButton.position = CGPoint(x: frame.midX, y: frame.midY - 160)
         closeButton.name = "closeCustomDonation"
         closeButton.zPosition = 102
         addChild(closeButton)
@@ -559,7 +553,7 @@ class SettingsScene: SKScene {
             node.removeFromParent()
         }
         // Remove custom donate buttons
-        for amount in [15, 20, 25, 50, 75, 200] {
+        for amount in [15, 20, 25, 50, 75, 100, 150, 200] {
             childNode(withName: "customDonate\(amount)")?.removeFromParent()
         }
     }
